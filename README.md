@@ -1,3 +1,19 @@
 # Jenkins
 
 ---
+
+## Jenkins 활용
+- <a href="/note/젠킨스 설치 및 구성.md" target="_blank">젠킨스 설치 및 구성</a>
+
+
+## Jenkins + Ansible
+
+## Jenkins + Ansible + Kubernetes
+
+## Jenkins PipeLine
+
+## Jenkins + SonarQube, Multi nodes
+
+## 상용 클라우드 배포
+
+---
