@@ -105,3 +105,37 @@ drwxr-xr-x 9 jenkins jenkins     4096 Mar 15 14:14 ..
 - 빌드 결과물이 jar파일로 저장되어 있는 것을 확인할 수 있다.
 
 ---
+
+## plain.jar 생성 막기
+- `-plain.jar`는 실행 가능한 jar파일이 아니다. (애플리케이션 실행에 필요한 모든 의존성이 포함되지 않음)
+- 애플리케이션 배포 관점에서는 저 jar 파일이 우리의 핵심 관심사이므로, plain.jar를 포함시키지 않고싶다.
+- 이럴 경우, build.gradle 파일에서 다음을 수정해주면 된다.
+
+### kotlin
+```kotlin
+tasks.named<Jar>("jar") {
+	enabled = false
+}
+```
+
+### groovy
+```groovy
+tasks.named("jar") {
+	enabled = false
+}
+```
+
+### 결과 확인
+```shell
+$ docker exec -it jenkins-server bash
+$ cd /var/jenkins_home/workspace/my-gradle-project/
+jenkins@e1f342247c44:~/workspace/my-gradle-project$ cd build/libs
+jenkins@e1f342247c44:~/workspace/my-gradle-project/build/libs$ ls -al
+total 24284
+drwxr-xr-x 2 jenkins jenkins     4096 Mar 16 04:26 .
+drwxr-xr-x 9 jenkins jenkins     4096 Mar 16 04:26 ..
+-rw-r--r-- 1 jenkins jenkins 24855200 Mar 16 04:26 jenkins-0.0.1-SNAPSHOT.jar
+```
+- plain jar 파일이 생성되지 않고, 모든 의존성이 포함된 실행 가능한 jar 파일 하나만 생성된다.
+
+---
